@@ -73,7 +73,7 @@ public class StringCalc {
 		if(numbers.size()> 2) 
 			throw new RuntimeException("Only two numbers can be processed");
 		else					
-			return numbers.stream().filter(x -> x <1000)
+			return numbers.stream().filter(x -> x <1000) // to filter numbers greater than 1000
 				.mapToInt(x ->x ).sum();	 
 
 		}
