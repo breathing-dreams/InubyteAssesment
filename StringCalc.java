@@ -3,9 +3,19 @@ package com.javabrains.NewscapeTest;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+//step 5. to check negative nos 
+class NegativeNumberNotAllowed extends Exception{
+		
+	NegativeNumberNotAllowed(List<Integer> x) {
+		System.out.println("Negative numbers not allowed"+x);		
+	}
+}
 
 public class StringCalc {
-	
+
 	private static String[] newArray;
 
 	public static void main(String[] args){			
@@ -14,7 +24,7 @@ public class StringCalc {
 		 * String input=sc.nextLine();
 		 */
 		
-		String input="//;\n1;2";
+		String input="-1,-2";
 		String[] newArray = null;
 		int a;
 		String delimiter=",";
@@ -25,11 +35,13 @@ public class StringCalc {
 			input=input.substring(4, input.length());
 			System.out.println(""+delimiter+" "+input);
 		}
+				
+		
 		
 		ArrayList<Integer> positiveList=new ArrayList<Integer>(10);
-		input=input.replaceAll("[\n]", ",");// remove new line
+		input=input.replaceAll("[\n]", ",");
 		
-		if(input==null || input=="")
+		if(input==null || input=="" || input.contains(",\n") || input.contains("\n,"))
 			System.out.println("0"); // return '0' for null entry
 		else {
 			newArray = input.split(delimiter);
@@ -37,7 +49,20 @@ public class StringCalc {
 			for(String value:stringList) {					
 				positiveList.add(Integer.parseInt(value));
 			}
-			System.out.println(Add(positiveList)); // else call method Add
+			List<Integer> negativeList=stringList.stream()
+					.map(Integer::valueOf)
+					.filter(x -> x < 0)
+					.collect(Collectors.toList());
+			
+			try {
+				if(negativeList.size()!=0)
+					throw new NegativeNumberNotAllowed(negativeList); //to handle negative numbers	
+				else{
+					System.out.println(Add(positiveList)); // else call method Add			
+				}
+			}
+			catch(NegativeNumberNotAllowed e)	{	}
+			
 		}
 			
 	}
@@ -52,5 +77,4 @@ public class StringCalc {
 				.mapToInt(x ->x ).sum();	 
 
 		}
-
 }
