@@ -14,9 +14,17 @@ public class StringCalc {
 		 * String input=sc.nextLine();
 		 */
 		
-		String input="1/n5";
+		String input="//;\n1;2";
 		String[] newArray = null;
 		int a;
+		String delimiter=",";
+		
+		if(input.startsWith("//")) { //if the input starts with "//" the next character will be delimiter and the remaining 
+									//input string will be used for further operation
+			delimiter=input.substring(2, 3);	
+			input=input.substring(4, input.length());
+			System.out.println(""+delimiter+" "+input);
+		}
 		
 		ArrayList<Integer> positiveList=new ArrayList<Integer>(10);
 		input=input.replaceAll("[\n]", ",");// remove new line
@@ -24,7 +32,7 @@ public class StringCalc {
 		if(input==null || input=="")
 			System.out.println("0"); // return '0' for null entry
 		else {
-			newArray = input.split(",");
+			newArray = input.split(delimiter);
 			List<String> stringList=Arrays.asList(newArray);			
 			for(String value:stringList) {					
 				positiveList.add(Integer.parseInt(value));
