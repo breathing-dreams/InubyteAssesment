@@ -14,11 +14,12 @@ public class StringCalc {
 		 * String input=sc.nextLine();
 		 */
 		
-		String input="1,2,3";
+		String input="1/n5";
 		String[] newArray = null;
 		int a;
 		
 		ArrayList<Integer> positiveList=new ArrayList<Integer>(10);
+		input=input.replaceAll("[\n]", ",");// remove new line
 		
 		if(input==null || input=="")
 			System.out.println("0"); // return '0' for null entry
